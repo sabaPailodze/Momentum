@@ -16,6 +16,7 @@
 
 body {
   font-family: "firaGO", sans-serif;
+  overflow: hidden;
 }
 
 .font-fredoka {

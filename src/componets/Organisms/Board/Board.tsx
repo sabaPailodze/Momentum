@@ -28,17 +28,23 @@ const Board = () => {
         <div className="flex w-full">
           <Statuses title={statusesData} />
         </div>
-        {/* <div>
-          <Link to="/task/1" className="text-blue-500 underline">
-            Go to Task 1
-          </Link>
-        </div> */}
       </div>
-
-      {/* ეს ლინკები შემდგომ იქნება ბექიდან წამოსულ ქარდებში რომელსაც მაპით 
-      გადავუვლი და იქ თითოეულს ექნება ეს ლინკი რომელიც გადაივანს აიდით */}
     </div>
   );
 };
 
 export default Board;
+
+{
+  /* <div>
+  <Link to="/task/1" className="text-blue-500 underline">
+    Go to Task 1
+  </Link>
+</div> */
+}
+
+{
+  /* ეს ლინკები შემდგომ იქნება ბექიდან წამოსულ ქარდებში რომელსაც მაპით 
+      გადავუვლი და იქ თითოეულს ექნება ეს ლინკი რომელიც გადაივანს აიდით და გვაჩვენებს
+      ქარდის დეტალურ ინფორმაციას */
+}
