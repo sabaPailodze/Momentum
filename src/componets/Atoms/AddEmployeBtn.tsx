@@ -1,9 +1,23 @@
-const AddEmployeBtn = () => {
+import { useState } from "react";
+import EmployeeModal from "./EmployeeModal";
+
+const AddEmployeeBtn = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const handleOpen = () => setIsOpen(true);
+  const handleClose = () => setIsOpen(false);
+
   return (
-    <button className="border-1 hover:border-[#B588F4] border-[#8338EC] cursor-pointer rounded-[5px] px-5 py-2.5 text-[16px] font-normal">
-      თანამშრომლის შექმნა
-    </button>
+    <div className="relative">
+      <button
+        className="border border-[#8338EC] hover:border-[#B588F4] cursor-pointer rounded-md px-5 py-2.5 text-lg font-normal"
+        onClick={handleOpen}
+      >
+        თანამშრომლის შექმნა
+      </button>
+
+      {isOpen && <EmployeeModal handleClose={handleClose} />}
+    </div>
   );
 };
 
-export default AddEmployeBtn;
+export default AddEmployeeBtn;

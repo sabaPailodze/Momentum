@@ -14,3 +14,10 @@ export interface ErrorState {
   priorities?: string;
   employees?: string;
 }
+
+export type DepDropDownProps = {
+  isDepOpen: boolean;
+  departments: { id: number; name: string }[];
+  handleDepSelect: (dep: string) => void;
+  errors: { departments?: string };
+};

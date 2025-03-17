@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { fetchData } from "../../services/axios";
 import FilterBtns from "../Atoms/FilterBtns";
-import { StateProps } from "../../types/PropTypes";
-import { ErrorState } from "../../types/PropTypes";
+import { StateProps } from "../../types/types";
+import { ErrorState } from "../../types/types";
 
 const FiltersCont = () => {
   const [openFilter, setOpenFilter] = useState<string | null>(null);
@@ -15,7 +15,7 @@ const FiltersCont = () => {
     const loadData = async () => {
       try {
         const [depData, priData, empData] = await Promise.all([
-          fetchData("departmensts"),
+          fetchData("departments"),
           fetchData("priorities"),
           fetchData("employees", true),
         ]);
@@ -68,7 +68,7 @@ const FiltersCont = () => {
   };
 
   return (
-    <div className="flex flex-col w-[55%] gap-13 relative transition-all duration-400">
+    <div className="flex flex-col w-fit gap-13 relative transition-all duration-400">
       <div className="text-[34px] font-semibold">დავალებების გვერდი</div>
 
       <div className="flex gap-[45px] border border-[#DEE2E6] rounded-[5px]">
@@ -83,26 +83,30 @@ const FiltersCont = () => {
       </div>
 
       {openFilter && (
-        <div className="flex z-50 bg-white absolute top-40 w-full flex-col gap-5 border border-[#8338EC] rounded-[10px] px-6 py-5 shadow-lg">
+        <div className="flex z-10 bg-white absolute top-40 w-full flex-col gap-5 border border-[#8338EC] rounded-[10px] px-6 py-5 shadow-lg ">
           {getErrorMessage() ? (
             <div className="text-black text-center text-[20px] ">
               {getErrorMessage()}
             </div>
           ) : (
             <>
-              <div className="pt-5 h-[17vh] overflow-y-scroll flex flex-col gap-2">
+              <div className="pt-5 h-[17vh] overflow-y-scroll flex flex-col gap-2 select-none ">
                 {getFilterData().map((item) => (
                   <label
                     key={item.id}
-                    className="flex items-center gap-2 text-[#212529] font-normal text-[16px]"
+                    className="flex items-center gap-2 text-[#212529] font-normal text-[16px] cursor-pointer"
                   >
-                    <input type="checkbox" value={item.name} />
+                    <input
+                      type="checkbox"
+                      value={item.name}
+                      className="cursor-pointer"
+                    />
                     {item.name}
                   </label>
                 ))}
               </div>
               <div className="flex justify-end">
-                <button className="rounded-[20px] text-white bg-[#8338EC] text-[16px] font-normal px-5 py-2">
+                <button className="rounded-[20px] text-white bg-[#8338EC] text-[16px] font-normal px-5 py-2 cursor-pointer">
                   არჩევა
                 </button>
               </div>
