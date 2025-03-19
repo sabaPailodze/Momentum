@@ -13,19 +13,27 @@ const useHandleSubmit = ({
   handleClose,
 }: EmployeeFormProps) => {
   const handleSubmit = async () => {
-    const nameError = validateField(name);
-    const surnameError = validateField(surname);
-    const avatarError = avatar === null ? "გთხოვთ ატვირთოთ ავატარი" : "";
-    const departmentError = !selectedDep ? "გთხოვთ მიუთითოთ დეპარტამენტი" : "";
+    const maxSizeInBytes = 600 * 1024;
+    const newErrors = {
+      name: name ? validateField(name) : "სახელი აუცილებელია!",
+      surname: surname ? validateField(surname) : "გვარი აუცილებელია!",
+      avatar: (() => {
+        if (!avatar) return "გთხოვთ ატვირთოთ ავატარი";
+        if (avatar.size > maxSizeInBytes)
+          return "აუცილებელია ფოტო იყოს 600 KB-ზე ნაკლები ზომის";
+        return "";
+      })(),
+      department: selectedDep ? "" : "გთხოვთ მიუთითოთ დეპარტამენტი",
+    };
 
-    setErrorsForm({
-      name: nameError,
-      surname: surnameError,
-      avatar: avatarError,
-      department: departmentError,
-    });
+    setErrorsForm(newErrors);
 
-    if (!nameError && !surnameError && !avatarError && !departmentError) {
+    if (
+      !newErrors.name &&
+      !newErrors.surname &&
+      !newErrors.avatar &&
+      !newErrors.department
+    ) {
       try {
         const formData = new FormData();
         formData.append("name", name);

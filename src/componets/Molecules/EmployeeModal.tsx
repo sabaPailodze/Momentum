@@ -18,6 +18,7 @@ const EmployeeModal = ({
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [avatar, setAvatar] = useState<File | null>(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorsForm, setErrorsForm] = useState({
     name: "",
     surname: "",
@@ -26,25 +27,38 @@ const EmployeeModal = ({
   });
 
   useEffect(() => {
-    if (name) setErrorsForm((prev) => ({ ...prev, name: validateField(name) }));
-  }, [name]);
-
-  useEffect(() => {
-    if (surname)
-      setErrorsForm((prev) => ({
-        ...prev,
-        surname: validateField(surname),
-      }));
-  }, [surname]);
-
-  useEffect(() => {
-    if (selectedDep) setErrorsForm((prev) => ({ ...prev, department: "" }));
-  }, [selectedDep]);
+    setErrorsForm((prev) => ({
+      ...prev,
+      name: name ? validateField(name) : prev.name,
+      surname: surname ? validateField(surname) : prev.surname,
+      department: selectedDep ? "" : prev.department,
+    }));
+  }, [name, surname, selectedDep]);
 
   const handleDepSelect = (dep: string) => {
     setSelectedDep(dep);
     setIsDepOpen(false);
     setErrorsForm((prev) => ({ ...prev, department: "" }));
+  };
+
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newFile = e.target.files?.[0] || null;
+    if (newFile) {
+      const maxSizeInBytes = 600 * 1024; // 600 KB = 600 * 1024 bytes
+      if (newFile.size > maxSizeInBytes) {
+        setErrorsForm((prev) => ({
+          ...prev,
+          avatar: "აუცილებელია ფოტო იყოს 600 KB-ზე ნაკლები ზომის",
+        }));
+        setAvatar(null);
+      } else {
+        setAvatar(newFile);
+        setErrorsForm((prev) => ({ ...prev, avatar: "" }));
+      }
+    } else {
+      setAvatar(null);
+      setErrorsForm((prev) => ({ ...prev, avatar: "გთხოვთ ატვირთოთ ავატარი" }));
+    }
   };
 
   const { handleSubmit } = useHandleSubmit({
@@ -57,6 +71,11 @@ const EmployeeModal = ({
     onEmployeeAdded,
     handleClose,
   });
+
+  const onSubmit = () => {
+    setIsSubmitted(true);
+    handleSubmit();
+  };
 
   return (
     <div
@@ -84,6 +103,7 @@ const EmployeeModal = ({
                 value={name}
                 setValue={setName}
                 error={errorsForm.name}
+                showError={isSubmitted}
               />
             </div>
             <div className="flex flex-col w-full flex-1 relative">
@@ -92,6 +112,7 @@ const EmployeeModal = ({
                 value={surname}
                 setValue={setSurname}
                 error={errorsForm.surname}
+                showError={isSubmitted}
               />
             </div>
           </div>
@@ -99,18 +120,11 @@ const EmployeeModal = ({
             <h2 className="font-bold pb-1">ავატარი*</h2>
             <input
               type="file"
-              onChange={(e) => {
-                const newFile = e.target.files?.[0] || null;
-                setAvatar(newFile);
-                if (newFile) {
-                  setErrorsForm((prev) => ({ ...prev, avatar: "" }));
-                }
-              }}
+              onChange={handleAvatarChange}
               className="p-10 border border-dashed w-full text-[#6c757d]"
             />
-
-            {errorsForm.avatar && (
-              <span className="absolute top-[135px]  left-0 text-red-500 text-[12px]">
+            {isSubmitted && errorsForm.avatar && (
+              <span className="absolute top-[135px] left-0 text-red-500 text-[12px]">
                 {errorsForm.avatar}
               </span>
             )}
@@ -118,7 +132,9 @@ const EmployeeModal = ({
           <div className="w-[47%] relative">
             <h2 className="font-bold pb-1">დეპარტამენტი</h2>
             <div
-              className={`border w-full h-[50px] border-[#ced4da] flex items-center justify-between px-4 rounded-[6px] cursor-pointer `}
+              className={`border w-full h-[50px] border-[#ced4da] flex items-center justify-between px-4 rounded-[6px] cursor-pointer ${
+                isSubmitted && !selectedDep ? "border-red-500" : ""
+              }`}
               onClick={() => setIsDepOpen(!isDepOpen)}
             >
               <span className="text-black text-[14px]">
@@ -132,7 +148,7 @@ const EmployeeModal = ({
                 }`}
               />
             </div>
-            {errorsForm.department && (
+            {isSubmitted && errorsForm.department && (
               <span className="absolute top-[80px] left-0 text-red-500 text-[12px]">
                 {errorsForm.department}
               </span>
@@ -153,7 +169,7 @@ const EmployeeModal = ({
             </button>
             <button
               className="text-[18px] p-2 rounded-[8px] bg-[#8338EC] duration-100 hover:bg-[#B588F4] text-white cursor-pointer"
-              onClick={handleSubmit}
+              onClick={onSubmit}
             >
               დაამატე თანამშრომელი
             </button>

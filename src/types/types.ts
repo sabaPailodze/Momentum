@@ -51,3 +51,51 @@ export interface EmployeeFormProps {
   }) => void;
   handleClose: () => void;
 }
+
+export interface DropdownSelectProps {
+  title: string;
+  endpoint: string;
+  hasIcon?: boolean;
+  onSelect: (selectedItem: any) => void;
+}
+
+export type OptionType = {
+  id: number;
+  name: string;
+  icon?: string;
+  surname?: string;
+  avatar?: string;
+};
+
+export interface Employee {
+  id: number;
+  name: string;
+  surname?: string;
+  avatar?: string;
+}
+
+export interface TextInputProps {
+  label: string;
+  value: string;
+  setValue: (v: string) => void;
+  error: string;
+  asTextarea?: boolean;
+  showError?: boolean;
+}
+
+export interface Status {
+  id: number;
+  name: string;
+}
+
+export interface StatusesProps {
+  title: Status[];
+}
+
+export interface ExtendedDropdownSelectProps extends DropdownSelectProps {
+  id: string;
+  isOpen: boolean;
+  setOpen: (id: string | null) => void;
+  hasIcon?: boolean;
+  error?: string;
+}
