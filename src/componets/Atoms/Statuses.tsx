@@ -1,14 +1,7 @@
-interface Status {
-  id: number;
-  name: string;
-}
-
-interface StatusesProps {
-  title: Status[];
-}
+import { StatusesProps } from "../../types/types";
 
 const Statuses = ({ title }: StatusesProps) => {
-  const colors = ["#F7BC30", "#FB5607", "#FF006E", "#3A86FF"];
+  const colors = ["#F7BC30", "#4f4a47", "#FF006E", "#3A86FF"];
   return (
     <div className="flex gap-13 flex-1">
       {title.map((statuses, index) => (
