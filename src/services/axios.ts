@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const url = "https://momentum.redberryinternship.ge/api";
-const TOKEN = "9e6cea8a-7e46-4553-8e38-120baaded277";
+const TOKEN = "9e76f076-656c-4760-8af8-a3b3fd1f2166";
 
 export const fetchData = async (endpoint: string, auth = false) => {
   try {
@@ -11,5 +11,20 @@ export const fetchData = async (endpoint: string, auth = false) => {
   } catch (error) {
     console.error(`Error fetching ${endpoint}:`, error);
     return null;
+  }
+};
+
+export const addEmployee = async (employeeData: FormData) => {
+  try {
+    const response = await axios.post(`${url}/employees`, employeeData, {
+      headers: {
+        Authorization: `Bearer ${TOKEN}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error adding employee:", error);
+    throw error;
   }
 };

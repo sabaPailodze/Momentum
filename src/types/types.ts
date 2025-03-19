@@ -7,6 +7,8 @@ export interface FilterBtnsProps {
 export interface StateProps {
   id: number;
   name: string;
+  surname?: string;
+  avatar?: string;
 }
 
 export interface ErrorState {
@@ -21,3 +23,31 @@ export type DepDropDownProps = {
   handleDepSelect: (dep: string) => void;
   errors: { departments?: string };
 };
+
+export type EmployeeModalProps = {
+  handleClose: () => void;
+  onEmployeeAdded?: (employee: StateProps) => void;
+};
+
+export interface EmployeeFormProps {
+  name: string;
+  surname: string;
+  avatar: File | null;
+  selectedDep: string | null;
+  departments: { id: number; name: string }[];
+  setErrorsForm: React.Dispatch<
+    React.SetStateAction<{
+      name: string;
+      surname: string;
+      avatar: string;
+      department: string;
+    }>
+  >;
+  onEmployeeAdded?: (employee: {
+    id: number;
+    name: string;
+    surname: string;
+    avatar?: string;
+  }) => void;
+  handleClose: () => void;
+}
