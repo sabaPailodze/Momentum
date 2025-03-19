@@ -26,15 +26,14 @@ const EmployeeModal = ({
   });
 
   useEffect(() => {
-    if (name)
-      setErrorsForm((prev) => ({ ...prev, name: validateField(name, "name") }));
+    if (name) setErrorsForm((prev) => ({ ...prev, name: validateField(name) }));
   }, [name]);
 
   useEffect(() => {
     if (surname)
       setErrorsForm((prev) => ({
         ...prev,
-        surname: validateField(surname, "surname"),
+        surname: validateField(surname),
       }));
   }, [surname]);
 

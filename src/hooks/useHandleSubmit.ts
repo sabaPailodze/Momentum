@@ -13,8 +13,8 @@ const useHandleSubmit = ({
   handleClose,
 }: EmployeeFormProps) => {
   const handleSubmit = async () => {
-    const nameError = validateField(name, "name");
-    const surnameError = validateField(surname, "surname");
+    const nameError = validateField(name);
+    const surnameError = validateField(surname);
     const avatarError = avatar === null ? "გთხოვთ ატვირთოთ ავატარი" : "";
     const departmentError = !selectedDep ? "გთხოვთ მიუთითოთ დეპარტამენტი" : "";
 
