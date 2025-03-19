@@ -106,7 +106,7 @@ const FiltersCont = () => {
                 ))}
               </div>
               <div className="flex justify-end">
-                <button className="rounded-[20px] text-white bg-[#8338EC] text-[16px] font-normal px-5 py-2 cursor-pointer">
+                <button className="rounded-[20px] text-white duration-100 hover:bg-[#B588F4] bg-[#8338EC] text-[16px] font-normal px-5 py-2 cursor-pointer">
                   არჩევა
                 </button>
               </div>

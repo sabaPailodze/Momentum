@@ -11,7 +11,7 @@ const Board = () => {
       try {
         const data = await fetchData("statuses");
         setStatusesData(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error("სტატუსები ვერ მოიძებნა", error);
       }

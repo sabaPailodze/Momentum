@@ -1,5 +1,5 @@
 import { useState } from "react";
-import EmployeeModal from "./EmployeeModal";
+import EmployeeModal from "../Molecules/EmployeeModal";
 
 const AddEmployeeBtn = () => {
   const [isOpen, setIsOpen] = useState(false);
