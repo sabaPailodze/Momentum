@@ -99,3 +99,55 @@ export interface ExtendedDropdownSelectProps extends DropdownSelectProps {
   hasIcon?: boolean;
   error?: string;
 }
+
+export interface Option {
+  id: number;
+  name: string;
+  icon?: string;
+  surname?: string;
+  avatar?: string;
+  department_id?: number;
+}
+
+export interface TaskFormData {
+  title: string;
+  description: string;
+  priority: Option | null;
+  status: Option | null;
+  department: Option | null;
+  assignee: Option | null;
+  deadline: string;
+}
+export interface TaskFormProps {
+  formData: TaskFormData;
+  setFormData: React.Dispatch<React.SetStateAction<TaskFormData>>;
+  errors: { [key: string]: string };
+  isSubmitted: boolean;
+  openDropdown: string | null;
+  setOpenDropdown: React.Dispatch<React.SetStateAction<string | null>>;
+  handleAddTask: () => void;
+}
+
+export interface Option {
+  id: number;
+  name: string;
+  icon?: string;
+  surname?: string;
+  avatar?: string;
+  department_id?: number;
+}
+
+export interface TaskFormData {
+  title: string;
+  description: string;
+  priority: Option | null;
+  status: Option | null;
+  department: Option | null;
+  assignee: Option | null;
+  deadline: string;
+}
+
+export interface EmployeeContextType {
+  employees: StateProps[];
+  addEmployee: (employee: StateProps) => void;
+}

@@ -7,11 +7,10 @@ import { EmployeeModalProps } from "../../types/types";
 import TextInput from "../Atoms/TextInput";
 import { validateField } from "../../utils/validateField";
 import useHandleSubmit from "../../hooks/useHandleSubmit";
+import { useEmployeeContext } from "../../context/EmployeeContext";
 
-const EmployeeModal = ({
-  handleClose,
-  onEmployeeAdded,
-}: EmployeeModalProps) => {
+const EmployeeModal = ({ handleClose }: EmployeeModalProps) => {
+  const { addEmployee } = useEmployeeContext();
   const { departments, errors } = useFetchDepartments();
   const [selectedDep, setSelectedDep] = useState<string | null>(null);
   const [isDepOpen, setIsDepOpen] = useState(false);
@@ -44,7 +43,7 @@ const EmployeeModal = ({
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newFile = e.target.files?.[0] || null;
     if (newFile) {
-      const maxSizeInBytes = 600 * 1024; // 600 KB = 600 * 1024 bytes
+      const maxSizeInBytes = 600 * 1024;
       if (newFile.size > maxSizeInBytes) {
         setErrorsForm((prev) => ({
           ...prev,
@@ -68,7 +67,10 @@ const EmployeeModal = ({
     selectedDep,
     departments,
     setErrorsForm,
-    onEmployeeAdded,
+    onEmployeeAdded: (newEmployee) => {
+      addEmployee(newEmployee);
+      handleClose();
+    },
     handleClose,
   });
 
