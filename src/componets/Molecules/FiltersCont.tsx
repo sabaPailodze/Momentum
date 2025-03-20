@@ -3,8 +3,10 @@ import { fetchData } from "../../services/axios";
 import FilterBtns from "../Atoms/FilterBtns";
 import { StateProps } from "../../types/types";
 import { ErrorState } from "../../types/types";
+import { useEmployeeContext } from "../../context/EmployeeContext";
 
 const FiltersCont = () => {
+  const { employees: globalEmployees } = useEmployeeContext(); // გლობალური თანამშრომლები
   const [openFilter, setOpenFilter] = useState<string | null>(null);
   const [departments, setDepartments] = useState<StateProps[]>([]);
   const [priorities, setPriorities] = useState<StateProps[]>([]);
@@ -53,10 +55,13 @@ const FiltersCont = () => {
     loadData();
   }, []);
 
+  // თანამშრომლების განახლება გლობალური მდგომარეობიდან
+  const combinedEmployees = [...employees, ...globalEmployees];
+
   const getFilterData = () => {
     if (openFilter === "დეპარტამენტი") return departments;
     if (openFilter === "პრიორიტეტი") return priorities;
-    if (openFilter === "თანამშრომელი") return employees;
+    if (openFilter === "თანამშრომელი") return combinedEmployees; // გაერთიანებული სია
     return [];
   };
 

@@ -15,7 +15,7 @@ const DropdownSelect = ({
   error,
 }: ExtendedDropdownSelectProps) => {
   const [options, setOptions] = useState<OptionType[]>([]);
-  const [selectedOption, setSelectedOption] = useState<OptionType | null>();
+  const [selectedOption, setSelectedOption] = useState<OptionType | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -42,10 +42,7 @@ const DropdownSelect = ({
 
   const handleSelect = (option: OptionType) => {
     setSelectedOption(option);
-    const selectedValue = isEmployee
-      ? `${option.name} ${option.surname || ""}`
-      : option.name;
-    onSelect(selectedValue);
+    onSelect(option);
     setOpen(null);
   };
 
