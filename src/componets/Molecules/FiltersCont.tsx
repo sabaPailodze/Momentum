@@ -112,7 +112,10 @@ const FiltersCont = () => {
                         className="inline-block h-[28px] w-[28px] rounded-full"
                       />
                     )}
-                    <span>{item.name}</span>
+                    <div className="flex gap-1">
+                      <span>{item.name}</span>
+                      <span>{item.surname}</span>
+                    </div>
                   </label>
                 ))}
               </div>
