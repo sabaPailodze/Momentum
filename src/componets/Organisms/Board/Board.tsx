@@ -52,8 +52,6 @@ const Board = () => {
     loadData();
   }, [refreshTasks, setTasks]);
 
-  console.log("Current Tasks in Context:", tasks);
-
   if (loading)
     return <p className="text-center text-[#6C757D] pt-16">იტვირთება...</p>;
   if (error) return <p className="text-center text-red-500 pt-16">{error}</p>;
@@ -64,7 +62,7 @@ const Board = () => {
         <FiltersCont />
       </div>
       <div className="flex flex-col flex-1">
-        <div className="flex gap-13 justify-between">
+        <div className="flex gap-13 justify-between pb-5">
           {statusesData.map((status, index) => (
             <TaskColumn
               key={status.id}
