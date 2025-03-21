@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { fetchData } from "../services/axios";
 import { TaskProps, StateProps } from "../types/types";
@@ -57,6 +57,21 @@ const TaskDetails = () => {
     }
   };
 
+  const updateTotalComments = useCallback(
+    (taskId: number, newTotal: number) => {
+      setTask((prev) => {
+        if (prev && prev.id === taskId && prev.total_comments !== newTotal) {
+          return {
+            ...prev,
+            total_comments: newTotal,
+          };
+        }
+        return prev;
+      });
+    },
+    []
+  );
+
   if (loading)
     return <p className="text-center text-gray-500 pt-16">იტვირთება...</p>;
   if (error) return <p className="text-center text-red-500 pt-16">{error}</p>;
@@ -66,8 +81,8 @@ const TaskDetails = () => {
     );
 
   return (
-    <div className="pt-10 flex flex-col gap-3">
-      <div className="flex flex-1 w-full justify-between gap-55">
+    <div className="pt-10 flex flex-col gap-3 h-full">
+      <div className="flex w-full justify-between gap-55">
         <TaskDescription
           task={task}
           statuses={statuses}
@@ -76,7 +91,11 @@ const TaskDetails = () => {
           handleStatusChange={handleStatusChange}
         />
         <div className="flex-1">
-          <CommentsSection />
+          <CommentsSection
+            taskId={task.id}
+            totalComments={task.total_comments}
+            updateTotalComments={updateTotalComments}
+          />
         </div>
       </div>
     </div>

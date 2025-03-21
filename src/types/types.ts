@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export interface FilterBtnsProps {
   title: string;
   isOpen: boolean;
@@ -174,4 +176,32 @@ export interface TaskDescriptionProps {
   isStatusDropdownOpen: boolean;
   setIsStatusDropdownOpen: (value: boolean) => void;
   handleStatusChange: (statusId: number, statusName: string) => void;
+}
+
+export interface CommentProps {
+  id: number;
+  task_id: number;
+  text: string;
+  author_nickname: string;
+  author_avatar: string;
+  parent_id?: number | null;
+  sub_comments?: CommentProps[];
+}
+
+export interface CommentsSectionProps {
+  taskId: number;
+  totalComments: number;
+  updateTotalComments: (taskId: number, newTotal: number) => void;
+}
+
+export interface UseCommentActionsProps {
+  taskId: number;
+  comments: CommentProps[];
+  newComment: string;
+  replyText: string;
+  setComments: Dispatch<SetStateAction<CommentProps[]>>;
+  setNewComment: Dispatch<SetStateAction<string>>;
+  setReplyText: Dispatch<SetStateAction<string>>;
+  setActiveReplyId: Dispatch<SetStateAction<number | null>>;
+  updateTotalComments: (taskId: number, newTotal: number) => void;
 }

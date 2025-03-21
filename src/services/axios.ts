@@ -2,7 +2,6 @@ import axios from "axios";
 
 const BASE_URL = "https://momentum.redberryinternship.ge/api";
 const TOKEN = "9e7b22dd-7c42-46f0-87e7-af3548535f42";
-// const TOKEN = "9e7b11e9-051d-4029-b025-a92323c81084";
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -71,3 +70,32 @@ export const createTask = async (taskData: any) => {
     throw new Error("Failed to create task");
   }
 };
+
+// GET მოთხოვნა კომენტარების წამოსაღებად
+
+export async function getComments(taskId: number) {
+  try {
+    const response = await api.get(`tasks/${taskId}/comments`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error instanceof Error ? error.message : "Unknown error");
+  }
+}
+
+// POST მოთხოვნა კომენტარების დასამატებლად
+
+export async function addComment(
+  taskId: number,
+  text: string,
+  parentId: number | null = null
+) {
+  try {
+    const response = await api.post(`/tasks/${taskId}/comments`, {
+      text,
+      parent_id: parentId,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error instanceof Error ? error.message : "Unknown error");
+  }
+}
