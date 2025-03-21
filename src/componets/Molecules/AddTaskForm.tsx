@@ -105,7 +105,7 @@ const TaskForm = ({
             />
           </div>
           <div className="flex flex-col">
-            <label className="text-[16px] font-bold text-[#343a40] pb-[6px]">
+            <label className="text-[16px] font-bold text-[#000000] pb-[6px]">
               დედლაინი*
             </label>
             <input

@@ -6,7 +6,7 @@ import { ErrorState } from "../../types/types";
 import { useEmployeeContext } from "../../context/EmployeeContext";
 
 const FiltersCont = () => {
-  const { employees: globalEmployees } = useEmployeeContext(); // გლობალური თანამშრომლები
+  const { employees: globalEmployees } = useEmployeeContext();
   const [openFilter, setOpenFilter] = useState<string | null>(null);
   const [departments, setDepartments] = useState<StateProps[]>([]);
   const [priorities, setPriorities] = useState<StateProps[]>([]);
@@ -55,13 +55,12 @@ const FiltersCont = () => {
     loadData();
   }, []);
 
-  // თანამშრომლების განახლება გლობალური მდგომარეობიდან
   const combinedEmployees = [...employees, ...globalEmployees];
 
   const getFilterData = () => {
     if (openFilter === "დეპარტამენტი") return departments;
     if (openFilter === "პრიორიტეტი") return priorities;
-    if (openFilter === "თანამშრომელი") return combinedEmployees; // გაერთიანებული სია
+    if (openFilter === "თანამშრომელი") return combinedEmployees;
     return [];
   };
 
@@ -75,7 +74,6 @@ const FiltersCont = () => {
   return (
     <div className="flex flex-col w-fit gap-13 relative transition-all duration-400">
       <div className="text-[34px] font-semibold">დავალებების გვერდი</div>
-
       <div className="flex gap-[45px] border border-[#DEE2E6] rounded-[5px]">
         {["დეპარტამენტი", "პრიორიტეტი", "თანამშრომელი"].map((title) => (
           <FilterBtns
@@ -86,7 +84,6 @@ const FiltersCont = () => {
           />
         ))}
       </div>
-
       {openFilter && (
         <div className="flex z-10 bg-white absolute top-40 w-full flex-col gap-5 border border-[#8338EC] rounded-[10px] px-6 py-5 shadow-lg ">
           {getErrorMessage() ? (
@@ -95,18 +92,27 @@ const FiltersCont = () => {
             </div>
           ) : (
             <>
-              <div className="pt-5 h-[17vh] overflow-y-scroll flex flex-col gap-2 select-none ">
+              <div className="h-[17vh] overflow-y-scroll flex flex-col gap-2 select-none ">
                 {getFilterData().map((item) => (
                   <label
                     key={item.id}
-                    className="flex items-center gap-2 text-[#212529] font-normal text-[16px] cursor-pointer"
+                    className="flex items-center gap-3 text-[#212529] font-normal text-[16px] cursor-pointer"
                   >
                     <input
                       type="checkbox"
                       value={item.name}
-                      className="cursor-pointer"
+                      className="cursor-pointer w-5 h-5"
                     />
-                    {item.name}
+                    {openFilter === "თანამშრომელი" && item.avatar && (
+                      <img
+                        src={item.avatar}
+                        alt={`${item.name} avatar`}
+                        width={28}
+                        height={28}
+                        className="inline-block h-[28px] w-[28px] rounded-full"
+                      />
+                    )}
+                    <span>{item.name}</span>
                   </label>
                 ))}
               </div>

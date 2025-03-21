@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 
 const TaskDetails = () => {
-  const { id } = useParams(); // URL-დან ამოიღებს Task ID-ს
+  const { id } = useParams();
 
   return (
     <div>
