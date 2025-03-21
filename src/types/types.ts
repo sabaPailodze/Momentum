@@ -167,3 +167,11 @@ export interface TaskColumnProps {
   tasks: TaskProps[];
   color: string;
 }
+
+export interface TaskDescriptionProps {
+  task: TaskProps;
+  statuses: StateProps[];
+  isStatusDropdownOpen: boolean;
+  setIsStatusDropdownOpen: (value: boolean) => void;
+  handleStatusChange: (statusId: number, statusName: string) => void;
+}

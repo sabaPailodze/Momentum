@@ -1,11 +1,7 @@
 import { Link } from "react-router-dom";
 import { TaskCardProps } from "../../types/types";
 import CommentsIcon from "../../assets/Images/Comments.svg";
-
-const getRandomColor = () => {
-  const colors = ["#FF66A8", "#FFD86D", "#FB5607", "#89B6FF"];
-  return colors[Math.floor(Math.random() * colors.length)];
-};
+import { getRandomColor } from "../../utils/RandomColor";
 
 const formatGeorgianDate = (date: string) => {
   const d = new Date(date);
