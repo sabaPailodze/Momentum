@@ -7,14 +7,43 @@ export interface FilterBtnsProps {
 export interface StateProps {
   id: number;
   name: string;
-  surname?: string;
+  icon?: string;
   avatar?: string;
+  surname?: string;
+  department?: StateProps;
+}
+
+export interface TaskProps {
+  id: number;
+  name: string;
+  description: string;
+  due_date: string;
+  status: StateProps;
+  priority: StateProps;
+  department: StateProps;
+  employee: StateProps;
+  total_comments: number;
+}
+
+export interface TaskFormData {
+  title: string;
+  description: string;
+  priority: StateProps | null;
+  status: StateProps | null;
+  department: StateProps | null;
+  assignee: StateProps | null;
+  deadline: string;
 }
 
 export interface ErrorState {
   departments?: string;
   priorities?: string;
   employees?: string;
+}
+
+export interface TaskCardProps {
+  task: TaskProps;
+  color: string;
 }
 
 export type DepDropDownProps = {
@@ -109,15 +138,6 @@ export interface Option {
   department_id?: number;
 }
 
-export interface TaskFormData {
-  title: string;
-  description: string;
-  priority: Option | null;
-  status: Option | null;
-  department: Option | null;
-  assignee: Option | null;
-  deadline: string;
-}
 export interface TaskFormProps {
   formData: TaskFormData;
   setFormData: React.Dispatch<React.SetStateAction<TaskFormData>>;
@@ -137,17 +157,13 @@ export interface Option {
   department_id?: number;
 }
 
-export interface TaskFormData {
-  title: string;
-  description: string;
-  priority: Option | null;
-  status: Option | null;
-  department: Option | null;
-  assignee: Option | null;
-  deadline: string;
-}
-
 export interface EmployeeContextType {
   employees: StateProps[];
   addEmployee: (employee: StateProps) => void;
+}
+
+export interface TaskColumnProps {
+  status: StateProps;
+  tasks: TaskProps[];
+  color: string;
 }

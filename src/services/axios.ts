@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const BASE_URL = "https://momentum.redberryinternship.ge/api";
-// const TOKEN = "9e76f076-656c-4760-8af8-a3b3fd1f2166";
-const TOKEN = "9e7abca6-89a9-463e-80c2-797b77bc0898";
+const TOKEN = "9e7b22dd-7c42-46f0-87e7-af3548535f42";
+// const TOKEN = "9e7b11e9-051d-4029-b025-a92323c81084";
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -11,7 +11,7 @@ const api = axios.create({
   },
 });
 
-// GET რექუესტი მონაცემების წამოსაღებად
+// GET მოთხოვნა მონაცემების წამოსაღებად
 
 export const fetchData = async (endpoint: string, _auth: boolean = false) => {
   try {
@@ -27,7 +27,7 @@ export const fetchData = async (endpoint: string, _auth: boolean = false) => {
   }
 };
 
-// POST რექუესტი თანამშრომლის დასამატებლად
+// POST მოთხოვნა თანამშრომლის დასამატებლად
 export const addEmployee = async (employeeData: FormData) => {
   try {
     const response = await api.post("/employees", employeeData, {
@@ -42,7 +42,7 @@ export const addEmployee = async (employeeData: FormData) => {
   }
 };
 
-// POST რექუესტი დავალების დასამატებლად
+// POST მოთხოვნა დავალების დასამატებლად
 
 export const createTask = async (taskData: any) => {
   try {

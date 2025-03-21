@@ -4,9 +4,11 @@ import { createTask } from "../services/axios";
 import { useTaskValidation } from "../hooks/useTaskValidation";
 import { TaskFormData } from "../types/types";
 import TaskForm from "../componets/Molecules/AddTaskForm";
+import { useEmployeeContext } from "../context/EmployeeContext";
 
 const AddTask = () => {
   const navigate = useNavigate();
+  const { setRefreshTasks } = useEmployeeContext();
 
   const [formData, setFormData] = useState<TaskFormData>({
     title: "",
@@ -58,6 +60,7 @@ const AddTask = () => {
       const response = await createTask(newTask);
       console.log("Task Created:", response);
       resetForm();
+      setRefreshTasks((prev) => !prev);
       navigate("/");
     } catch (error) {
       console.error("Error adding task:", error);
@@ -66,7 +69,7 @@ const AddTask = () => {
   };
 
   return (
-    <div className="py-10 flex flex-col gap-[30px]">
+    <div className="py-16 flex flex-col gap-[30px]">
       <h1 className="text-[34px] text-[#212529] font-semibold">
         შექმენი ახალი დავალება
       </h1>

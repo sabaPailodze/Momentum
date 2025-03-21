@@ -1,6 +1,14 @@
 import { createContext, useContext, useState, ReactNode } from "react";
-import { StateProps } from "../types/types";
-import { EmployeeContextType } from "../types/types";
+import { StateProps, TaskProps } from "../types/types";
+
+interface EmployeeContextType {
+  employees: StateProps[];
+  addEmployee: (employee: StateProps) => void;
+  tasks: TaskProps[];
+  setTasks: React.Dispatch<React.SetStateAction<TaskProps[]>>;
+  refreshTasks: boolean;
+  setRefreshTasks: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 const EmployeeContext = createContext<EmployeeContextType | undefined>(
   undefined
@@ -8,13 +16,24 @@ const EmployeeContext = createContext<EmployeeContextType | undefined>(
 
 export const EmployeeProvider = ({ children }: { children: ReactNode }) => {
   const [employees, setEmployees] = useState<StateProps[]>([]);
+  const [tasks, setTasks] = useState<TaskProps[]>([]);
+  const [refreshTasks, setRefreshTasks] = useState(false);
 
   const addEmployee = (employee: StateProps) => {
     setEmployees((prev) => [...prev, employee]);
   };
 
   return (
-    <EmployeeContext.Provider value={{ employees, addEmployee }}>
+    <EmployeeContext.Provider
+      value={{
+        employees,
+        addEmployee,
+        tasks,
+        setTasks,
+        refreshTasks,
+        setRefreshTasks,
+      }}
+    >
       {children}
     </EmployeeContext.Provider>
   );
