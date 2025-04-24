@@ -27,7 +27,7 @@
 
 ## 🔗 Live Demo
 
-👉 Deployed on Vercel: [Click here to view](https://momentum-saba.vercel.app/) *(replace with your actual link if different)*
+👉 Deployed on Vercel: [Click here to view](https://momentum-black.vercel.app/)
 
 ## 👨‍💻 My Role
 
