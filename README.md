@@ -1,6 +1,6 @@
 # ⚡ Momentum — Progress Tracking Software
 
-**Momentum** is a clean and efficient progress tracking tool developed as a technical assignment for the [Redberry Bootcamp](https://redberry.institute). It helps users manage their daily or weekly tasks while showcasing state management, UI responsiveness, and frontend best practices.
+**Momentum** is a clean and efficient progress tracking tool developed as a technical assignment for the Redberry Bootcamp. It helps users manage their daily or weekly tasks while showcasing state management, UI responsiveness, and frontend best practices.
 
 ## ✨ Highlights
 
